@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Bet Trading Calculator</title>
+    <link rel="stylesheet" href="/static/css/dark.css?v=1.1.2">
+    <style>
+      .hidden { display: none; }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>Trading Calculator</h1>
+        <p class="muted">Lay & Back modes · Hedge (auto) · Cashout / Freebet helpers</p>
+      </header>
+
+      <!-- Top Row: Mode & Messages -->
+
+    <div class="grid-columns" style="align-items: start;">
+      <!-- Left column: Mode selector -->
+        <section class="card">
+        <h3 style="margin-top:0;">Mode</h3>
+        <div style="display:flex; gap:1rem; align-items:center; margin-bottom:0.5rem;">
+          <label><input type="radio" name="mode" value="back-first" checked> Back first</label>
+          <label><input type="radio" name="mode" value="lay-first"> Lay first</label>
+		  <label>Use Freebet? <input id="useFreebet" type="checkbox" /></label>
+        </div>
+        <small>Back first (then Lay) or Lay first (then Back)</small><br><br>
+		<button class="github-dark-button" id="recalcAllBtn">⚡ Recalculate All</button>
+        <button style="margin-left:20px" class="github-dark-button" id="resetCalculatorBtn">🔄 Reset Bet Trading</button>
+      </section>
+
+      <!-- Right column: Messages -->
+      <section class="card">
+        <h3 style="margin-top:0;">Messages</h3>
+        <div id="msgResult"></div>
+      </section>
+    </div>
+  
+
+  <!-- Bottom Row: Back & Lay inputs side by side -->
+  <div class="grid">
+    <!-- Back inputs -->
+    <section class="card" id="backSection">
+      <h3 id="backTitle">Back Bet (hedge)</h3>
+      <label>Back Odds<input id="backOdds" type="number" step="0.01" min="1.01" /></label>
+      <label>Back Stake<input id="backStake" type="number" step="0.01" /></label>
+	  <button class="github-dark-button" id="calcBackBtn">⚡ Calculate Back</button>
+      <div id="backResult" class="result"></div>
+    </section>
+
+    <!-- Lay inputs -->
+    <section class="card" id="laySection">
+      <h3 id="layTitle">Lay Bet (risk-based)</h3>
+      <label>Lay Odds<input id="layOdds" type="number" step="0.01" min="1.01" /></label>
+      <label>Lay Stake (payout)<input id="layPayout" type="number" step="0.01" /></label>
+      <label>Liability (Risk)<input id="layLiability" type="number" step="0.01" /></label>
+	  <button class="github-dark-button" id="calcLayBtn">⚡ Calculate Lay</button>
+      <div id="layResult" class="result"></div>
+    </section>
+  </div>
+
+
+      <!-- Dutching  leave this alone-->
+      <section class="card" id="dutchingSection">
+        <h3>📊 Correct Score Dutching</h3>
+        <form id="dutchForm">
+          <label>Total Stake: R$ <input type="number" id="dutchingStake" value="100" step="0.01" min="1"></label>
+          <p>Enter odds for up to 4 correct scores:</p>
+          <input type="number" id="odds1" class="odds" step="0.01" min="1.01" placeholder="e.g. 3.55">
+          <input type="number" id="odds2" class="odds" step="0.01" min="1.01" placeholder="e.g. 5.4">
+          <input type="number" id="odds3" class="odds" step="0.01" min="1.01" placeholder="e.g. 8.6">
+          <input type="number" id="odds4" class="odds" step="0.01" min="1.01" placeholder="e.g. 11.0">
+          <br><br>
+          <button class="github-dark-button" type="submit" id="calculateDutchingBtn">Calculate</button>
+        </form>
+        <div id="dutchingResult" class="result"></div>
+      </section>
+
+      <hr>
+      <footer class="muted">Built with Quart + Jinja · External JS & CSS · Dark GitHub-like style</footer>
+    </main>
+
+    <script src="/static/js/betcalc.js?v=1.10.0"></script>
+  </body>
+</html>
